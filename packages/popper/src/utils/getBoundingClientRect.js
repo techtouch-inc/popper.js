@@ -31,6 +31,21 @@ export default function getBoundingClientRect(element) {
     else {
       rect = element.getBoundingClientRect();
     }
+    // TODO: multiple nested frame
+    const frameElement =
+      element &&
+      element.ownerDocument &&
+      element.ownerDocument.defaultView &&
+      element.ownerDocument.defaultView.frameElement;
+    if (frameElement) {
+      const frameRect = frameElement.getBoundingClientRect();
+      rect = {
+        left: rect.left + frameRect.left,
+        top: rect.top + frameRect.top,
+        right: rect.right + frameRect.left,
+        bottom: rect.bottom + frameRect.top,
+      }
+    }
   }
   catch(e){}
 

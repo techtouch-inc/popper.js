@@ -1498,11 +1498,11 @@ const arrowSize = 5;
 
     it('checks cases where the reference element is fixed in scrolling parent', done => {
       jasmineWrapper.innerHTML = `
-            <div id="scroll" style="height: 100vh; overflow: scroll">                
+            <div id="scroll" style="height: 100vh; overflow: scroll">
                 <div id="reference" style="position: fixed; top: 100px; left: 100px; background: pink">reference</div>
                 <div id="popper" style="background: purple">popper</div>
                 <div style="height: 200vh"></div>
-            </div>                
+            </div>
             `;
 
       const reference = document.getElementById('reference');
@@ -1910,36 +1910,36 @@ const arrowSize = 5;
           body {
             padding: 100px;
           }
-  
+
           .scrollParent {
             height: 300px;
             width: 300px;
             overflow: auto;
             position: relative;
           }
-  
+
           .scrollContent {
             background: gray;
             padding: 1000px;
           }
-  
+
           #reference {
             background: lightgrey;
             height: 25px;
             width: 100px;
           }
-  
+
           #popper {
             background: cyan;
             height: 150px;
             width: 150px;
           }
-  
+
           [x-out-of-boundaries] {
             visibility: hidden;
           }
         </style>
-  
+
         <div class="scrollParent">
           <div class="scrollContent">
             <div id="reference">ref</div>
