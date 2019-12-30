@@ -1,5 +1,5 @@
 {
-  "name": "@popperjs/core",
+  "name": "@techtouch-inc/popper.js",
   "version": "2.0.0-alpha.2",
   "description": "A kickass library used to manage poppers in web applications",
   "main": "dist/cjs/popper.js",
@@ -8,7 +8,7 @@
   "unpkg": "dist/umd/popper.min.js",
   "author": "Federico Zivolo <federico.zivolo@gmail.com>",
   "license": "MIT",
-  "repository": "github:popperjs/popper.js",
+  "repository": "github:techtouch-inc/popper.js",
   "scripts": {
     "clean": "rimraf lib && rimraf dist && rimraf test/visual/dist",
     "test": "yarn test:unit && yarn test:functional",
@@ -103,5 +103,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
