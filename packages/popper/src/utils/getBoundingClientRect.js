@@ -31,19 +31,34 @@ export default function getBoundingClientRect(element) {
     else {
       rect = element.getBoundingClientRect();
     }
-    // TODO: multiple nested frame
-    const frameElement =
-      element &&
-      element.ownerDocument &&
-      element.ownerDocument.defaultView &&
-      element.ownerDocument.defaultView.frameElement;
-    if (frameElement) {
-      const frameRect = frameElement.getBoundingClientRect();
+
+    let currentElement = element
+
+    while (
+      currentElement &&
+      currentElement.ownerDocument &&
+      currentElement.ownerDocument.defaultView &&
+      currentElement.ownerDocument.defaultView.frameElement
+    ) {
+      currentElement = currentElement.ownerDocument.defaultView.frameElement
+      const computedStyle = getComputedStyle(currentElement)
+      const borderOffset = {
+        left: parseInt(computedStyle.borderLeftWidth || '0'),
+        top: parseInt(computedStyle.borderTopWidth || '0'),
+      }
+      const iframeRect = currentElement.getBoundingClientRect()
+      const offsettedPos = {
+        top: rect.top + iframeRect.top + borderOffset.top,
+        left: rect.left + iframeRect.left + borderOffset.left,
+        bottom: rect.bottom + iframeRect.top + borderOffset.top,
+        right: rect.right + iframeRect.left + borderOffset.left,
+      }
       rect = {
-        left: rect.left + frameRect.left,
-        top: rect.top + frameRect.top,
-        right: rect.right + frameRect.left,
-        bottom: rect.bottom + frameRect.top,
+        ...rect,
+        top: offsettedPos.top,
+        left: offsettedPos.left,
+        bottom: offsettedPos.bottom,
+        right: offsettedPos.right,
       }
     }
   }
