@@ -32,35 +32,35 @@ export default function getBoundingClientRect(element) {
       rect = element.getBoundingClientRect();
     }
 
-    let currentElement = element
+    // let currentElement = element
 
-    while (
-      currentElement &&
-      currentElement.ownerDocument &&
-      currentElement.ownerDocument.defaultView &&
-      currentElement.ownerDocument.defaultView.frameElement
-    ) {
-      currentElement = currentElement.ownerDocument.defaultView.frameElement
-      const computedStyle = getComputedStyle(currentElement)
-      const borderOffset = {
-        left: parseInt(computedStyle.borderLeftWidth || '0'),
-        top: parseInt(computedStyle.borderTopWidth || '0'),
-      }
-      const iframeRect = currentElement.getBoundingClientRect()
-      const offsettedPos = {
-        top: rect.top + iframeRect.top + borderOffset.top,
-        left: rect.left + iframeRect.left + borderOffset.left,
-        bottom: rect.bottom + iframeRect.top + borderOffset.top,
-        right: rect.right + iframeRect.left + borderOffset.left,
-      }
-      rect = {
-        ...rect,
-        top: offsettedPos.top,
-        left: offsettedPos.left,
-        bottom: offsettedPos.bottom,
-        right: offsettedPos.right,
-      }
-    }
+    // while (
+    //   currentElement &&
+    //   currentElement.ownerDocument &&
+    //   currentElement.ownerDocument.defaultView &&
+    //   currentElement.ownerDocument.defaultView.frameElement
+    // ) {
+    //   currentElement = currentElement.ownerDocument.defaultView.frameElement
+    //   const computedStyle = getComputedStyle(currentElement)
+    //   const borderOffset = {
+    //     left: parseInt(computedStyle.borderLeftWidth || '0'),
+    //     top: parseInt(computedStyle.borderTopWidth || '0'),
+    //   }
+    //   const iframeRect = currentElement.getBoundingClientRect()
+    //   const offsettedPos = {
+    //     top: rect.top + iframeRect.top + borderOffset.top,
+    //     left: rect.left + iframeRect.left + borderOffset.left,
+    //     bottom: rect.bottom + iframeRect.top + borderOffset.top,
+    //     right: rect.right + iframeRect.left + borderOffset.left,
+    //   }
+    //   rect = {
+    //     ...rect,
+    //     top: offsettedPos.top,
+    //     left: offsettedPos.left,
+    //     bottom: offsettedPos.bottom,
+    //     right: offsettedPos.right,
+    //   }
+    // }
   }
   catch(e){}
 
