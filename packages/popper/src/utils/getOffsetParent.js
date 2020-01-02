@@ -1,5 +1,6 @@
 import getStyleComputedProperty from './getStyleComputedProperty';
 import isIE from './isIE';
+import getParentNode from './getParentNode';
 /**
  * Returns the offset parent of the given element
  * @method
@@ -21,9 +22,9 @@ export default function getOffsetParent(element) {
     offsetParent = (element = element.nextElementSibling).offsetParent;
   }
 
-  const nodeName = offsetParent && offsetParent.nodeName;
+  const nodeName = offsetParent && getParentNode(offsetParent).nodeName;
 
-  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+  if (!nodeName || nodeName === 'HTML') {
     return element ? element.ownerDocument.documentElement : document.documentElement;
   }
 

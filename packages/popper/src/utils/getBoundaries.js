@@ -41,7 +41,7 @@ export default function getBoundaries(
     let boundariesNode;
     if (boundariesElement === 'scrollParent') {
       boundariesNode = getScrollParent(getParentNode(reference));
-      if (boundariesNode.nodeName === 'BODY') {
+      if (getParentNode(boundariesNode).nodeName === 'HTML') {
         boundariesNode = popper.ownerDocument.documentElement;
       }
     } else if (boundariesElement === 'window') {
@@ -72,10 +72,10 @@ export default function getBoundaries(
   // Add paddings
   padding = padding || 0;
   const isPaddingNumber = typeof padding === 'number';
-  boundaries.left += isPaddingNumber ? padding : padding.left || 0; 
-  boundaries.top += isPaddingNumber ? padding : padding.top || 0; 
-  boundaries.right -= isPaddingNumber ? padding : padding.right || 0; 
-  boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0; 
+  boundaries.left += isPaddingNumber ? padding : padding.left || 0;
+  boundaries.top += isPaddingNumber ? padding : padding.top || 0;
+  boundaries.right -= isPaddingNumber ? padding : padding.right || 0;
+  boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0;
 
   return boundaries;
 }

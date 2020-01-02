@@ -10,16 +10,16 @@ import getParentNode from './getParentNode';
  * @returns {Boolean} answer to "isFixed?"
  */
 export default function isFixed(element) {
-  const nodeName = element.nodeName;
-  if (nodeName === 'BODY' || nodeName === 'HTML') {
+  const parentNode = getParentNode(element);
+  if (!parentNode) {
+    return false;
+  }
+  const nodeName = parentNode.nodeName;
+  if (nodeName === 'HTML') {
     return false;
   }
   if (getStyleComputedProperty(element, 'position') === 'fixed') {
     return true;
-  }
-  const parentNode = getParentNode(element);
-  if (!parentNode) {
-    return false;
   }
   return isFixed(parentNode);
 }
