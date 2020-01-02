@@ -1,14 +1,17 @@
 import getScrollParent from './getScrollParent';
 import getWindow from './getWindow';
+import getParentNode from './getParentNode';
 
 function attachToScrollParents(scrollParent, event, callback, scrollParents) {
-  const isBody = scrollParent.nodeName === 'BODY' || scrollParent.nodeName === 'FRAMESET';
-  const target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
+  const isRoot = getParentNode(scrollParent).nodeName === 'HTML';
+  const target = isRoot ? scrollParent.ownerDocument.defaultView : scrollParent;
+  const shouldContinue = !isRoot || target.frameElement;
   target.addEventListener(event, callback, { passive: true });
 
-  if (!isBody) {
+  if (shouldContinue) {
+    const nextScrollParent = getScrollParent(isRoot ? target.frameElement : target.parentNode);
     attachToScrollParents(
-      getScrollParent(target.parentNode),
+      nextScrollParent,
       event,
       callback,
       scrollParents
